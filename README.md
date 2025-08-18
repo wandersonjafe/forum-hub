@@ -62,5 +62,6 @@ Permite criar, listar, detalhar, atualizar e excluir tópicos de forma segura, v
 - As badges mostram o status do projeto, últimos commits, issues e pull requests.
 
 ---
+## 📝 Licença
 
-## 📝 Licen
+Este projeto está licenciado sob a **MIT License**.
