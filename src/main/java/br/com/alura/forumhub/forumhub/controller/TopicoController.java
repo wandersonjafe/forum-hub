@@ -1,23 +1,25 @@
 package br.com.alura.forumhub.forumhub.controller;
 
-import br.com.alura.forumhub.forumhub.dto.DadosTopico;
-import br.com.alura.forumhub.forumhub.model.Topico;
-import br.com.alura.forumhub.forumhub.model.Usuario;
-import br.com.alura.forumhub.forumhub.model.Curso;
-import br.com.alura.forumhub.forumhub.repository.TopicoRepository;
-import br.com.alura.forumhub.forumhub.repository.UsuarioRepository;
-import br.com.alura.forumhub.forumhub.repository.CursoRepository;
+import br.com.alura.forumhub.forumhub.model.*;
+import br.com.alura.forumhub.forumhub.repository.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/topicos")
 public class TopicoController {
 
     @Autowired
-    private TopicoRepository topicoRepository;
+    private TopicoRepository repository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -25,16 +27,88 @@ public class TopicoController {
     @Autowired
     private CursoRepository cursoRepository;
 
+    // Cadastrar
     @PostMapping
     @Transactional
-    public void cadastrar(@RequestBody @Valid DadosTopico dados) {
+    public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosTopico dados,
+                                       UriComponentsBuilder uriBuilder) {
+
+        // Buscar entidades pelo ID
         Usuario autor = usuarioRepository.findById(dados.idAutor())
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
-
         Curso curso = cursoRepository.findById(dados.idCurso())
                 .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
 
+        // Checar duplicidade
+        Optional<Topico> topicoExistente = repository.findByTituloAndMensagem(dados.titulo(), dados.mensagem());
+        if (topicoExistente.isPresent()) {
+            return ResponseEntity.badRequest()
+                    .body("Já existe um tópico com esse título e mensagem!");
+        }
+
+        // Criar e salvar o tópico
         Topico topico = new Topico(dados.titulo(), dados.mensagem(), autor, curso);
-        topicoRepository.save(topico);
+        repository.save(topico);
+
+        var uri = uriBuilder.path("/topicos/{id}")
+                .buildAndExpand(topico.getId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoTopico(topico));
+    }
+
+    // Listar os dados
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemTopico>> listar(
+            @PageableDefault(size = 10, sort = {"dataCriacao"}) Pageable paginacao) {
+        var page = repository.findAll(paginacao).map(DadosListagemTopico::new);
+        return ResponseEntity.ok(page);
+    }
+
+    // Detalhar os dados
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosDetalhamentoTopico> detalhar(@PathVariable Long id) {
+        var optionalTopico = repository.findById(id);
+        if (optionalTopico.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(optionalTopico.get()));
+    }
+
+    // Atualizar os dados
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> atualizar(@PathVariable Long id,
+                                       @RequestBody @Valid DadosAtualizacaoTopico dados) {
+        var optionalTopico = repository.findById(id);
+        if (optionalTopico.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var topico = optionalTopico.get();
+
+        // Checar duplicidade apenas se titulo e mensagem forem informados
+        if (dados.titulo() != null && dados.mensagem() != null) {
+            Optional<Topico> topicoExistente = repository.findByTituloAndMensagem(dados.titulo(), dados.mensagem());
+            if (topicoExistente.isPresent() && !topicoExistente.get().getId().equals(id)) {
+                return ResponseEntity.badRequest()
+                        .body("Já existe um tópico com esse título e mensagem!");
+            }
+        }
+
+        topico.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+    }
+
+    // Excluir
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        var optionalTopico = repository.findById(id);
+        if (optionalTopico.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

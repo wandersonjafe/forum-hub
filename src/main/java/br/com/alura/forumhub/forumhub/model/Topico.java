@@ -1,9 +1,7 @@
 package br.com.alura.forumhub.forumhub.model;
 
-import br.com.alura.forumhub.forumhub.dto.EstadoTopico;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +24,7 @@ public class Topico {
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    private EstadoTopico estado = EstadoTopico.ABERTO;
+    private br.com.alura.forumhub.forumhub.model.EstadoTopico estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.aberto;
 
     @ManyToOne
     private Usuario autor;
@@ -34,10 +32,35 @@ public class Topico {
     @ManyToOne
     private Curso curso;
 
+    // Construtor manual com entidades já resolvidas
     public Topico(String titulo, String mensagem, Usuario autor, Curso curso) {
         this.titulo = titulo;
         this.mensagem = mensagem;
         this.autor = autor;
         this.curso = curso;
+        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.aberto;
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    // Métodos de mudança de estado
+    public void fechar() {
+        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.fechado;
+    }
+
+    public void arquivar() {
+        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.arquivado;
+    }
+
+    // Atualização condicional
+    public void atualizarInformacoes(DadosAtualizacaoTopico dados) {
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+        if (dados.estado() != null) {
+            this.estado = dados.estado(); // agora é do tipo correto
+        }
     }
 }
