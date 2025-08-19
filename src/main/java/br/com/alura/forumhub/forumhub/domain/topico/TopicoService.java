@@ -1,8 +1,5 @@
-package br.com.alura.forumhub.forumhub.service;
+package br.com.alura.forumhub.forumhub.domain.topico;
 
-import br.com.alura.forumhub.forumhub.model.Topico;
-import br.com.alura.forumhub.forumhub.model.EstadoTopico;
-import br.com.alura.forumhub.forumhub.repository.TopicoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

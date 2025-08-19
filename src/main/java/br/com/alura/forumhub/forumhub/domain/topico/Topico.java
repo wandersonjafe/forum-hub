@@ -1,5 +1,8 @@
-package br.com.alura.forumhub.forumhub.model;
+package br.com.alura.forumhub.forumhub.domain.topico;
 
+import br.com.alura.forumhub.forumhub.domain.curso.Curso;
+import br.com.alura.forumhub.forumhub.dto.topico.DadosAtualizacaoTopico;
+import br.com.alura.forumhub.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -24,7 +27,7 @@ public class Topico {
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
-    private br.com.alura.forumhub.forumhub.model.EstadoTopico estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.aberto;
+    private EstadoTopico estado = EstadoTopico.aberto;
 
     @ManyToOne
     private Usuario autor;
@@ -38,17 +41,17 @@ public class Topico {
         this.mensagem = mensagem;
         this.autor = autor;
         this.curso = curso;
-        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.aberto;
+        this.estado = EstadoTopico.aberto;
         this.dataCriacao = LocalDateTime.now();
     }
 
     // Métodos de mudança de estado
     public void fechar() {
-        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.fechado;
+        this.estado = EstadoTopico.fechado;
     }
 
     public void arquivar() {
-        this.estado = br.com.alura.forumhub.forumhub.model.EstadoTopico.arquivado;
+        this.estado = EstadoTopico.arquivado;
     }
 
     // Atualização condicional

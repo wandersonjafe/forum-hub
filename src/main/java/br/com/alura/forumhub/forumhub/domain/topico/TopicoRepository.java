@@ -1,6 +1,5 @@
-package br.com.alura.forumhub.forumhub.repository;
+package br.com.alura.forumhub.forumhub.domain.topico;
 
-import br.com.alura.forumhub.forumhub.model.Topico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.Modifying;

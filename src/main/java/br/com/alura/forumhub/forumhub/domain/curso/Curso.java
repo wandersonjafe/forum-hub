@@ -1,4 +1,4 @@
-package br.com.alura.forumhub.forumhub.model;
+package br.com.alura.forumhub.forumhub.domain.curso;
 
 import jakarta.persistence.*;
 import lombok.*;

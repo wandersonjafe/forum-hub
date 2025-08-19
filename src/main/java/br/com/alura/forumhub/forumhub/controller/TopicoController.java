@@ -1,7 +1,14 @@
 package br.com.alura.forumhub.forumhub.controller;
 
-import br.com.alura.forumhub.forumhub.model.*;
-import br.com.alura.forumhub.forumhub.repository.*;
+import br.com.alura.forumhub.forumhub.domain.curso.Curso;
+import br.com.alura.forumhub.forumhub.domain.curso.CursoRepository;
+import br.com.alura.forumhub.forumhub.domain.topico.*;
+import br.com.alura.forumhub.forumhub.dto.topico.DadosAtualizacaoTopico;
+import br.com.alura.forumhub.forumhub.dto.topico.DadosDetalhamentoTopico;
+import br.com.alura.forumhub.forumhub.dto.topico.DadosListagemTopico;
+import br.com.alura.forumhub.forumhub.dto.topico.DadosTopico;
+import br.com.alura.forumhub.forumhub.domain.usuario.Usuario;
+import br.com.alura.forumhub.forumhub.domain.usuario.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,26 +34,30 @@ public class TopicoController {
     @Autowired
     private CursoRepository cursoRepository;
 
+    // ================== Endpoint de teste protegido ==================
+    @GetMapping("/teste")
+    public ResponseEntity<String> testeAutenticacao() {
+        return ResponseEntity.ok("Acesso permitido: usuário autenticado!");
+    }
+    // ==================================================================
+
     // Cadastrar
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosTopico dados,
                                        UriComponentsBuilder uriBuilder) {
 
-        // Buscar entidades pelo ID
         Usuario autor = usuarioRepository.findById(dados.idAutor())
                 .orElseThrow(() -> new RuntimeException("Autor não encontrado"));
         Curso curso = cursoRepository.findById(dados.idCurso())
                 .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
 
-        // Checar duplicidade
         Optional<Topico> topicoExistente = repository.findByTituloAndMensagem(dados.titulo(), dados.mensagem());
         if (topicoExistente.isPresent()) {
             return ResponseEntity.badRequest()
                     .body("Já existe um tópico com esse título e mensagem!");
         }
 
-        // Criar e salvar o tópico
         Topico topico = new Topico(dados.titulo(), dados.mensagem(), autor, curso);
         repository.save(topico);
 
@@ -87,7 +98,6 @@ public class TopicoController {
 
         var topico = optionalTopico.get();
 
-        // Checar duplicidade apenas se titulo e mensagem forem informados
         if (dados.titulo() != null && dados.mensagem() != null) {
             Optional<Topico> topicoExistente = repository.findByTituloAndMensagem(dados.titulo(), dados.mensagem());
             if (topicoExistente.isPresent() && !topicoExistente.get().getId().equals(id)) {

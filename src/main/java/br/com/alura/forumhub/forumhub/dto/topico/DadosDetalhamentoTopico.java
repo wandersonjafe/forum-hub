@@ -1,4 +1,7 @@
-package br.com.alura.forumhub.forumhub.model;
+package br.com.alura.forumhub.forumhub.dto.topico;
+
+import br.com.alura.forumhub.forumhub.domain.topico.Topico;
+
 import java.time.LocalDateTime;
 
 public record DadosDetalhamentoTopico(
