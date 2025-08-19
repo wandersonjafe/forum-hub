@@ -13,7 +13,6 @@ public interface TopicoRepository extends JpaRepository<Topico, Long> {
     boolean existsByTituloAndMensagem(String titulo, String mensagem);
     Optional<Topico> findByTituloAndMensagem(String titulo, String mensagem);
 
-    // Aqui adicionamos o metodo para corrigir os enums
     @Modifying
     @Transactional
     @Query("UPDATE Topico t SET t.estado = 'ABERTO' WHERE t.estado = 'aberto'")

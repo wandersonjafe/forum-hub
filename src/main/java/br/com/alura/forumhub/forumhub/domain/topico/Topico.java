@@ -35,7 +35,6 @@ public class Topico {
     @ManyToOne
     private Curso curso;
 
-    // Construtor manual com entidades já resolvidas
     public Topico(String titulo, String mensagem, Usuario autor, Curso curso) {
         this.titulo = titulo;
         this.mensagem = mensagem;
@@ -63,7 +62,7 @@ public class Topico {
             this.mensagem = dados.mensagem();
         }
         if (dados.estado() != null) {
-            this.estado = dados.estado(); // agora é do tipo correto
+            this.estado = dados.estado();
         }
     }
 }

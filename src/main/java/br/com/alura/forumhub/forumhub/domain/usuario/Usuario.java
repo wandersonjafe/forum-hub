@@ -28,7 +28,6 @@ public class Usuario implements UserDetails {
 
     private String senha;
 
-    // Métodos do UserDetails
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(); // sem roles por enquanto

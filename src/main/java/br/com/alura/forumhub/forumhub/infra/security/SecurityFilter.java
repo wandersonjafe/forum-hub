@@ -27,19 +27,16 @@ public class SecurityFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Recupera o token do header Authorization
         String tokenJWT = recuperarToken(request);
 
         if (tokenJWT != null) {
-            // Recupera o email do usuário a partir do token
             String email = tokenService.getSubject(tokenJWT);
 
-            // Busca o usuário no banco
             Usuario usuario = usuarioRepository.findByEmail(email)
                     .orElse(null);
 
             if (usuario != null) {
-                // Cria autenticação no Spring Security
+
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 
@@ -47,7 +44,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             }
         }
 
-        // Continua o filtro
+
         filterChain.doFilter(request, response);
     }
 

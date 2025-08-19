@@ -12,7 +12,6 @@ public class TopicoService {
 
     private final TopicoRepository topicoRepository;
 
-    // Metodo para fechar um tópico
     @Transactional
     public Topico fecharTopico(Long id) {
         Topico topico = buscarTopicoPorId(id);
@@ -20,7 +19,6 @@ public class TopicoService {
         return topico;
     }
 
-    // Metodo para arquivar um tópico
     @Transactional
     public Topico arquivarTopico(Long id) {
         Topico topico = buscarTopicoPorId(id);
@@ -28,7 +26,6 @@ public class TopicoService {
         return topico;
     }
 
-    // Método auxiliar para buscar um tópico por ID
     private Topico buscarTopicoPorId(Long id) {
         Optional<Topico> optionalTopico = topicoRepository.findById(id);
         if (optionalTopico.isEmpty()) {

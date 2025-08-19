@@ -34,14 +34,11 @@ public class TopicoController {
     @Autowired
     private CursoRepository cursoRepository;
 
-    // ================== Endpoint de teste protegido ==================
     @GetMapping("/teste")
     public ResponseEntity<String> testeAutenticacao() {
         return ResponseEntity.ok("Acesso permitido: usuário autenticado!");
     }
-    // ==================================================================
 
-    // Cadastrar
     @PostMapping
     @Transactional
     public ResponseEntity<?> cadastrar(@RequestBody @Valid DadosTopico dados,

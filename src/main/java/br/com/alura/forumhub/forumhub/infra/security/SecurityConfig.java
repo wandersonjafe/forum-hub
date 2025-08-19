@@ -38,7 +38,6 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-    //  Bean para codificar senhas com BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
