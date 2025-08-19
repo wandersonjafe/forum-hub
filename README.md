@@ -16,12 +16,14 @@
 
 API RESTful para gerenciamento de tópicos de fórum, construída com **Spring Boot** e utilizando **MySQL** como banco de dados.  
 
-Permite criar, listar, detalhar, atualizar e excluir tópicos de forma segura, validando duplicidades e garantindo consistência.
+Permite criar, listar, detalhar, atualizar e excluir tópicos de forma segura, validando duplicidades e garantindo consistência.  
+A autenticação é feita com **JWT (JSON Web Token)** para proteger os endpoints.
 
 ---
 
 ## 🚀 Funcionalidades
 
+- 🔐 Login com usuário e senha para geração de token JWT
 - 🆕 Cadastro de tópicos
 - 📄 Listagem de tópicos (com paginação)
 - 🔍 Detalhamento de tópicos por ID
@@ -44,6 +46,12 @@ Permite criar, listar, detalhar, atualizar e excluir tópicos de forma segura, v
 
 ## 🔗 Endpoints
 
+### 🔐 Autenticação
+| Método | URI | Descrição |
+|--------|-----|-----------|
+| 🟢 POST | `/login` | Autenticar usuário e gerar token JWT |
+
+### 📌 Tópicos
 | Método | URI | Descrição |
 |--------|-----|-----------|
 | 🟢 POST   | `/topicos` | Criar um novo tópico |
@@ -54,14 +62,29 @@ Permite criar, listar, detalhar, atualizar e excluir tópicos de forma segura, v
 
 ---
 
+## 📂 Coleção Insomnia
+
+Para facilitar os testes da API, você pode importar a coleção de requisições do **Insomnia**:
+
+[📥 Baixar coleção Insomnia](./forumhub-insomnia.yml)
+
+No Insomnia, vá em:  
+**Application → Preferences → Data → Import Data → From File**  
+e selecione o arquivo.
+
+---
+
 ## ⚠️ Observações
 
 - Todos os campos são obrigatórios ao cadastrar ou atualizar um tópico.
 - A API valida duplicidade de tópicos pelo **título** e **mensagem**.
-- Teste os endpoints usando **Insomnia** ou **Postman**.
-- As badges mostram o status do projeto, últimos commits, issues e pull requests.
 
+  
 ---
+
 ## 📝 Licença
 
 Este projeto está licenciado sob a **MIT License**.
+
+- Teste os endpoints usando **Insomnia** ou **Postman**.
+- Utilize o token JWT no **header Authorization** no formato:  
