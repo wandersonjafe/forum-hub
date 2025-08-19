@@ -1,0 +1,204 @@
+type: collection.insomnia.rest/5.0
+name: Forum Hub
+meta:
+  id: wrk_678aa30e4bbf448ab5cfced03641f23f
+  created: 1755059758725
+  modified: 1755060746021
+  description: ""
+collection:
+  - url: localhost:8080/topicos
+    name: Cadastrar tópico
+    meta:
+      id: req_ac2da40ab36a4a11ad3e227c8daf4b4f
+      created: 1755061322766
+      modified: 1755552975790
+      isPrivate: false
+      description: ""
+      sortKey: -1755061322767
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "titulo": "Alura G8",
+          "mensagem": "Conteúdo do tópico",
+          "idAutor": 1,
+          "idCurso": 1
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRm9ydW1IdWIiLCJzdWIiOiJ0ZXN0ZUBhbHVyYS5jb20iLCJpYXQiOjE3NTU1NTI2ODgsImV4cCI6MTc1NTU1OTg4OH0.mE1-QRf_1aGMyvzKgC0RxX9l8oBPlHdVxZ9MBPCNHVQ
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/topicos
+    name: Listar os tópicos
+    meta:
+      id: req_aaf4862b5d244a1f97a918aa7a85a660
+      created: 1755198516234
+      modified: 1755558379515
+      isPrivate: false
+      description: ""
+      sortKey: -1755198516234
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBUEkgRm9ydW1IdWIiLCJzdWIiOiJ0ZXN0ZUBhbHVyYS5jb20iLCJleHAiOjE3NTU1NjU1NTJ9.ZuXrLEvqTm5kcp-ldQyiKiRbs2RPYlwtZkZuMUb0eXo
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/topicos/1
+    name: Detalhamento de tópico
+    meta:
+      id: req_8b7e4e0f8ed74c4796053a7253bf88e6
+      created: 1755440479644
+      modified: 1755552921776
+      isPrivate: false
+      description: ""
+      sortKey: -1755440479644
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRm9ydW1IdWIiLCJzdWIiOiJ0ZXN0ZUBhbHVyYS5jb20iLCJpYXQiOjE3NTU1NTI2ODgsImV4cCI6MTc1NTU1OTg4OH0.mE1-QRf_1aGMyvzKgC0RxX9l8oBPlHdVxZ9MBPCNHVQ
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/topicos/1
+    name: Atualização de tópico
+    meta:
+      id: req_03a805cb6cef446fbe4405564a632f5d
+      created: 1755444083764
+      modified: 1755552894871
+      isPrivate: false
+      description: ""
+      sortKey: -1755444083764
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "titulo": "TOKEN FUNCIONANDO",
+          "mensagem": "Texto atualizado da mensagem",
+          "estado": "fechado"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRm9ydW1IdWIiLCJzdWIiOiJ0ZXN0ZUBhbHVyYS5jb20iLCJpYXQiOjE3NTU1NTI2ODgsImV4cCI6MTc1NTU1OTg4OH0.mE1-QRf_1aGMyvzKgC0RxX9l8oBPlHdVxZ9MBPCNHVQ
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/topicos/6
+    name: Deletar tópico
+    meta:
+      id: req_7fc654b4dc79405ca2f9c29b994abb31
+      created: 1755472336933
+      modified: 1755553032063
+      isPrivate: false
+      description: ""
+      sortKey: -1755472336933
+    method: DELETE
+    headers:
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJBUEkgRm9ydW1IdWIiLCJzdWIiOiJ0ZXN0ZUBhbHVyYS5jb20iLCJpYXQiOjE3NTU1NTI2ODgsImV4cCI6MTc1NTU1OTg4OH0.mE1-QRf_1aGMyvzKgC0RxX9l8oBPlHdVxZ9MBPCNHVQ
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: localhost:8080/login
+    name: Login do usuário
+    meta:
+      id: req_91400cadbd054d429a5394e4a4d86b93
+      created: 1755541077963
+      modified: 1755551438396
+      isPrivate: false
+      description: ""
+      sortKey: -1755541077963
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "teste@alura.com",
+        	"senha": "123456"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.4.0
+    authentication:
+      type: none
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_951bb869e1d648f1ef99d34d8f5f183f263c4f67
+    created: 1755059758763
+    modified: 1755068452555
+  cookies:
+    - key: JSESSIONID
+      value: 5A027E1D500E95300A04806D6DAADE37
+      domain: localhost
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-08-13T04:40:15.805Z
+      lastAccessed: 2025-08-13T07:00:52.554Z
+      id: c1030634-f4bd-4638-8e8f-4f752a1a285a
+environments:
+  name: Base Environment
+  meta:
+    id: env_951bb869e1d648f1ef99d34d8f5f183f263c4f67
+    created: 1755059758757
+    modified: 1755059758757
+    isPrivate: false
