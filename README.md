@@ -73,11 +73,13 @@ No Insomnia, vá em:
 e selecione o arquivo.
 
 ---
-
 ## ⚠️ Observações
 
 - Todos os campos são obrigatórios ao cadastrar ou atualizar um tópico.
 - A API valida duplicidade de tópicos pelo **título** e **mensagem**.
+- Teste os endpoints usando **Insomnia** ou **Postman**.
+- Utilize o token JWT no **header Authorization** no formato:
+- Authorization: Bearer <seu_token_aqui>
 
   
 ---
@@ -85,6 +87,3 @@ e selecione o arquivo.
 ## 📝 Licença
 
 Este projeto está licenciado sob a **MIT License**.
-
-- Teste os endpoints usando **Insomnia** ou **Postman**.
-- Utilize o token JWT no **header Authorization** no formato:  
